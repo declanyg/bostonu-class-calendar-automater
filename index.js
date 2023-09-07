@@ -10,8 +10,11 @@ require('dotenv').config();
 
 const app = express();
 
-app.use(cors());
-app.options('*', cors())
+app.use(cors({
+  origin: ['https://calendar-automater-production.up.railway.app', 'http://localhost:3000', 'http://calendar-automater-production.up.railway.app'],
+  credentials : true
+}));
+
 // app.options('*', cors());
 
 // const corsOptions = {

@@ -186,7 +186,12 @@ app.post('/api/getList', bodyParser.json(), function(req, res) {
           else {
             offset = 0;
           }
-    
+
+          //Skipping Arranged classes
+          if (item[9+offset] == 'Arranged') {
+            return;
+          }
+          
           var arr = item[4+offset].split('\n');
           if (item[5+offset] == '') {
             description = item[6+offset] +" with " +arr[1]
@@ -194,7 +199,7 @@ app.post('/api/getList', bodyParser.json(), function(req, res) {
           else {
             description = item[5+offset] +"/n" + item[6+offset] +" with " +arr[1]
           }
-          var weekdays = item[9+offset].split(',');
+          var weekdays = item[9+offset].split('/n')[0].split(',');
           const weekdayToInt = {
             'Sun': 0,
             'Mon': 1,

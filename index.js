@@ -10,13 +10,16 @@ require('dotenv').config();
 
 const app = express();
 
-app.use(cors({origin: true}));
+// app.use(cors({origin: true}));
 // app.all('/*', function(req, res, next) {
 //   res.header("Access-Control-Allow-Origin", "*");
 //   res.header("Access-Control-Allow-Headers", "X-Requested-With");
 //   next();
 // });
 // app.options('*', cors());
+
+const cors = require('cors');  
+app.use(cors({credentials: true, origin: 'https://calendar-automater-production.up.railway.app'}));
 
 // const corsOptions = {
 //   origin: [

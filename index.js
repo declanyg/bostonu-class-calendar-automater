@@ -35,6 +35,8 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.post('/api/getList', bodyParser.json(), function(req, res) {
 
+  req.headers['Access-Control-Allow-Origin'] ='*'; 
+
     const buildingAbbreviations = {
         "AAS": "Boston University African American Studies, 138 Mountfort St, Brookline, MA 02446",
         "AGG": "Agganis Arena, 925 Commonwealth Ave, Boston, MA 02215",
@@ -234,6 +236,8 @@ const oauth2Client = new google.auth.OAuth2(
 
 //Get Calendars list
 app.post('/api/getCalendars', bodyParser.json(), async (req, res) => {
+  req.headers['Access-Control-Allow-Origin'] ='*'; 
+
   oauth2Client.setCredentials({access_token: req.body.access_token});
   
   const calendar = google.calendar({version: 'v3', auth: oauth2Client});
@@ -248,6 +252,8 @@ app.post('/api/getCalendars', bodyParser.json(), async (req, res) => {
 });
 
 app.post('/api/insertEvents', bodyParser.json(), async (req, res) => {
+  req.headers['Access-Control-Allow-Origin'] ='*'; 
+
   const calendar = google.calendar({version: 'v3', auth: oauth2Client});
 
   // const backoff = (fun, exponent, index)  => {

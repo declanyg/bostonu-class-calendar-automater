@@ -10,20 +10,20 @@ require('dotenv').config();
 
 const app = express();
 
-app.use(cors());
-app.all('/*', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next();
-});
-app.options('*', cors());
+app.use(cors({origin: true}));
+// app.all('/*', function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "X-Requested-With");
+//   next();
+// });
+// app.options('*', cors());
 
-const corsOptions = {
-  origin: [
-    'http://localhost:3000',
-    'https://calendar-automater-production.up.railway.app'
-  ]
-};
+// const corsOptions = {
+//   origin: [
+//     'http://localhost:3000',
+//     'https://calendar-automater-production.up.railway.app'
+//   ]
+// };
 
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));

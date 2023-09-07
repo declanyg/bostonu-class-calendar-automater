@@ -7,25 +7,19 @@ const cors = require("cors");
 const bodyParser = require('body-parser')
 require('dotenv').config();
 // const backOff = require("exponential-backoff");
+const cors = require('cors');  
 
 const app = express();
 
-// app.use(cors({origin: true}));
-// app.all('/*', function(req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "X-Requested-With");
-//   next();
-// });
+app.use(cors());
+app.all('/*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  next();
+});
 // app.options('*', cors());
 
-const cors = require('cors');  
 
-app.use(
-  cors({
-    origin: "*",
-    credentials: true
-  })
-);
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");

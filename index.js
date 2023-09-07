@@ -28,6 +28,8 @@ app.use(cors({
 
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, 'build')));
+// app.use(express.static(path.join(__dirname, 'client/build')));
+
 
 //Proxy
 // app.use(
@@ -144,7 +146,7 @@ app.post('/api/getList', bodyParser.json(), function(req, res) {
         return `${resultDate.toISOString().split('T')[0]}T${hours}:${minutes}:00`;
     }
     
-    puppeteer.launch({headless: "new", args: ['--single-process', "--disable-setuid-sandbox", '--no-sandbox', '--no-zygote'], executablePath: process.env.NODE_ENV === 'production' ? process.env.PUPPETEER_EXECUTABLE_PATH : puppeteer.executablePath()}).then(async function(browser) {
+    puppeteer.launch({headless: "new", args: ['--single-process', "--disable-setuid-sandbox", '--no-sandbox', '--no-zygote'], ignoreDefaultArgs: ['--disable-extensions']}).then(async function(browser) {
         const page = await browser.newPage();
     
         await page.goto("https://www.bu.edu/link/bin/uiscgi_studentlink.pl/1676256927?ModuleName=allsched.pl");

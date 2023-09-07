@@ -4,6 +4,7 @@ const puppeteer = require('puppeteer');
 const {google} = require('googleapis');
 
 const bodyParser = require('body-parser')
+require('dotenv').config();
 // const backOff = require("exponential-backoff");
 
 const app = express();
@@ -207,9 +208,9 @@ app.post('/api/getList', bodyParser.json(), function(req, res) {
 
 //Google Calendar Setup
 const oauth2Client = new google.auth.OAuth2(
-  '700310009078-nu2qqnmocu3g5i3rupjvd2cjqs02n7n3.apps.googleusercontent.com',
-  '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',
-  'http://localhost:3000'
+  process.env.CLIENT_ID,
+  process.env.CLIENT_SECRET,
+  process.env.REDIRECT_URL
 );
 
 //Get Calendars list
@@ -272,7 +273,7 @@ app.get('*', (req,res) =>{
     res.sendFile(path.join(__dirname+'/client/build/index.html'));
 });
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || process.env.PORT;
 app.listen(port);
 
 console.log('App is listening on port ' + port);

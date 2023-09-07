@@ -10,15 +10,8 @@ require('dotenv').config();
 
 const app = express();
 
-app.use(cors({
-    origin: "*",
-    preflightContinue: false
-  }));
-app.all('/*', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
-  next();
-});
+app.use(cors());
+app.options('*', cors())
 // app.options('*', cors());
 
 // const corsOptions = {
@@ -34,8 +27,6 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 //Pupeteer Scraper
 
 app.post('/api/getList', bodyParser.json(), function(req, res) {
-
-  req.headers['Access-Control-Allow-Origin'] ='*'; 
 
     const buildingAbbreviations = {
         "AAS": "Boston University African American Studies, 138 Mountfort St, Brookline, MA 02446",
@@ -236,7 +227,6 @@ const oauth2Client = new google.auth.OAuth2(
 
 //Get Calendars list
 app.post('/api/getCalendars', bodyParser.json(), async (req, res) => {
-  req.headers['Access-Control-Allow-Origin'] ='*'; 
 
   oauth2Client.setCredentials({access_token: req.body.access_token});
   
@@ -252,7 +242,6 @@ app.post('/api/getCalendars', bodyParser.json(), async (req, res) => {
 });
 
 app.post('/api/insertEvents', bodyParser.json(), async (req, res) => {
-  req.headers['Access-Control-Allow-Origin'] ='*'; 
 
   const calendar = google.calendar({version: 'v3', auth: oauth2Client});
 

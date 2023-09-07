@@ -19,13 +19,6 @@ app.all('/*', function(req, res, next) {
 });
 // app.options('*', cors());
 
-
-
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  next();
-});
-
 // const corsOptions = {
 //   origin: [
 //     'http://localhost:3000',
@@ -38,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 
 //Pupeteer Scraper
 
-app.post('/api/getList', bodyParser.json(), cors(), function(req, res) {
+app.post('/api/getList', bodyParser.json(), function(req, res) {
 
     const buildingAbbreviations = {
         "AAS": "Boston University African American Studies, 138 Mountfort St, Brookline, MA 02446",
@@ -238,7 +231,7 @@ const oauth2Client = new google.auth.OAuth2(
 );
 
 //Get Calendars list
-app.post('/api/getCalendars', bodyParser.json(), cors(), async (req, res) => {
+app.post('/api/getCalendars', bodyParser.json(), async (req, res) => {
   oauth2Client.setCredentials({access_token: req.body.access_token});
   
   const calendar = google.calendar({version: 'v3', auth: oauth2Client});
@@ -252,7 +245,7 @@ app.post('/api/getCalendars', bodyParser.json(), cors(), async (req, res) => {
   res.send(calendarNamesArray);
 });
 
-app.post('/api/insertEvents', bodyParser.json(), cors(), async (req, res) => {
+app.post('/api/insertEvents', bodyParser.json(), async (req, res) => {
   const calendar = google.calendar({version: 'v3', auth: oauth2Client});
 
   // const backoff = (fun, exponent, index)  => {

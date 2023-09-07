@@ -9,16 +9,14 @@ require('dotenv').config();
 // const backOff = require("exponential-backoff");
 
 const app = express();
-app.use(cors({
-  origin: 'https://calendar-automater-production.up.railway.app/'
-}));
+app.use(cors());
 
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 //Pupeteer Scraper
 
-app.post('/api/getList', bodyParser.json(), function(req, res) {
+app.post('/api/getList', cors(), bodyParser.json(), function(req, res) {
 
     const buildingAbbreviations = {
         "AAS": "Boston University African American Studies, 138 Mountfort St, Brookline, MA 02446",
@@ -218,7 +216,7 @@ const oauth2Client = new google.auth.OAuth2(
 );
 
 //Get Calendars list
-app.post('/api/getCalendars', bodyParser.json(), async (req, res) => {
+app.post('/api/getCalendars', cors(), bodyParser.json(), async (req, res) => {
   oauth2Client.setCredentials({access_token: req.body.access_token});
   
   const calendar = google.calendar({version: 'v3', auth: oauth2Client});
@@ -232,7 +230,7 @@ app.post('/api/getCalendars', bodyParser.json(), async (req, res) => {
   res.send(calendarNamesArray);
 });
 
-app.post('/api/insertEvents', bodyParser.json(), async (req, res) => {
+app.post('/api/insertEvents', cors(), bodyParser.json(), async (req, res) => {
   const calendar = google.calendar({version: 'v3', auth: oauth2Client});
 
   // const backoff = (fun, exponent, index)  => {

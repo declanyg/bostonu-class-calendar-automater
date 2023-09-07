@@ -7,7 +7,7 @@ const cors = require("cors");
 const bodyParser = require('body-parser')
 require('dotenv').config();
 // const backOff = require("exponential-backoff");
-const { createProxyMiddleware } = require('http-proxy-middleware')
+// const { createProxyMiddleware } = require('http-proxy-middleware')
 
 
 const app = express();
@@ -27,16 +27,16 @@ app.use(cors({
 // };
 
 // Serve the static files from the React app
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, 'build')));
 
 //Proxy
-app.use(
-  '/api',
-  createProxyMiddleware({
-    target: 'calendar-automater-api-production.up.railway.app',
-    changeOrigin: true,
-  }),
-)
+// app.use(
+//   '/api',
+//   createProxyMiddleware({
+//     target: 'calendar-automater-api-production.up.railway.app',
+//     changeOrigin: true,
+//   }),
+// )
 
 //Pupeteer Scraper
 

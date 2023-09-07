@@ -16,6 +16,7 @@ app.all('/*', function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   next();
 });
+app.options('*', cors());
 
 const corsOptions = {
   origin: [

@@ -194,10 +194,10 @@ app.post('/api/getList', bodyParser.json(), function(req, res) {
           
           var arr = item[4+offset].split('\n');
           if (item[5+offset] == '') {
-            description = item[6+offset] +" with " +arr[1]
+            description = item[6+offset].split('\n')[0] +" with " +arr[1]
           }
           else {
-            description = item[5+offset] +"/n" + item[6+offset] +" with " +arr[1]
+            description = item[5+offset] +"/n" + item[6+offset].split('\n')[0] +" with " +arr[1]
           }
           var weekdays = item[9+offset].split('/n')[0].split(',');
           const weekdayToInt = {

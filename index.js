@@ -9,10 +9,12 @@ require('dotenv').config();
 // const backOff = require("exponential-backoff");
 
 const app = express();
+app.use(cors({
+  origin: 'https://calendar-automater-production.up.railway.app/'
+}));
 
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
-app.use(cors());
 
 //Pupeteer Scraper
 

@@ -19,7 +19,18 @@ const app = express();
 // app.options('*', cors());
 
 const cors = require('cors');  
-app.use(cors({credentials: true, origin: 'https://calendar-automater-production.up.railway.app'}));
+
+app.use(
+  cors({
+    origin: "*",
+    credentials: true
+  })
+);
+
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+});
 
 // const corsOptions = {
 //   origin: [

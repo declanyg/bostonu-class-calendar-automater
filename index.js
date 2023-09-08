@@ -279,7 +279,7 @@ app.post('/api/insertEvents', bodyParser.json(), async (req, res) => {
 
   const calendar = google.calendar({version: 'v3', auth: oauth2Client});
   
-  console.log(oauth2Client)
+  // console.log(oauth2Client)
 
 
   // const backoff = (fun, exponent, index)  => {
@@ -312,7 +312,7 @@ app.post('/api/insertEvents', bodyParser.json(), async (req, res) => {
       'resource': req.body.events[i],
       'sendNotifications': true
     })
-    console.log(`${i} success`)
+    // console.log(`${i} success`)
   }
 
     

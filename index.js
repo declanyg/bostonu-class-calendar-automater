@@ -277,6 +277,8 @@ app.post('/api/getCalendars', bodyParser.json(), async (req, res) => {
 
 app.post('/api/insertEvents', bodyParser.json(), async (req, res) => {
 
+  console.log(oauth2Client);
+
   const calendar = google.calendar({version: 'v3', auth: oauth2Client});
 
   // const backoff = (fun, exponent, index)  => {

@@ -122,7 +122,6 @@ app.post('/api/getList', bodyParser.json(), function(req, res) {
     
     function getNextDayOfWeek(date, dayOfWeek, time) {
         // Code to check that date and dayOfWeek are valid left as an exercise ;)
-    
         var resultDate = new Date(date.getTime());
         resultDate.setDate(date.getDate() + (7 + dayOfWeek - date.getDay()) % 7);
     
@@ -144,6 +143,11 @@ app.post('/api/getList', bodyParser.json(), function(req, res) {
         }
     
         return `${resultDate.toISOString().split('T')[0]}T${hours}:${minutes}:00`;
+    }
+
+    function autoCorrect(text, correction) {
+      const reg = new RegExp(Object.keys(correction).join("|"), "g");
+      return text.replace(reg, (matched) => correction[matched]);
     }
     
     puppeteer.launch({headless: "new", args: ['--single-process', "--disable-setuid-sandbox", '--no-sandbox', '--no-zygote'], ignoreDefaultArgs: ['--disable-extensions']}).then(async function(browser) {
@@ -191,13 +195,22 @@ app.post('/api/getList', bodyParser.json(), function(req, res) {
           if (item[9+offset] == 'Arranged') {
             return;
           }
+
+          //Adding notes to description
+          const replacements = {
+            "Class Closed": "",
+            "Class Full": '',
+            "\n": ' '
+          }
+      
+          var notes = autoCorrect(item[12+offset], replacements).trim()
           
           var arr = item[4+offset].split('\n');
           if (item[5+offset] == '') {
-            description = item[6+offset].split('\n')[0] +" with " +arr[1]
+            description = `${item[6+offset].split('\n')[0]} with ${arr[1]}\n${notes}`
           }
           else {
-            description = item[5+offset] +"/n" + item[6+offset].split('\n')[0] +" with " +arr[1]
+            description = `${item[5+offset]}\n${item[6+offset].split('\n')[0]} with ${arr[1]}\n${notes}`
           }
           var weekdays = item[9+offset].split('/n')[0].split(',');
           const weekdayToInt = {

@@ -23,4 +23,4 @@ git commit -m "$commitMessage"
 
 git push
 
-fi
+exit 1

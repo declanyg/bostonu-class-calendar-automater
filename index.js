@@ -43,7 +43,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 //Pupeteer Scraper
 
 app.post('/api/getList', bodyParser.json(), function(req, res) {
-
+    
     const buildingAbbreviations = {
         "AAS": "Boston University African American Studies, 138 Mountfort St, Brookline, MA 02446",
         "AGG": "Agganis Arena, 925 Commonwealth Ave, Boston, MA 02215",
@@ -135,7 +135,7 @@ app.post('/api/getList', bodyParser.json(), function(req, res) {
             hours = '00';
           }
           else if (parseInt(hours) < 10){
-            hours == '0' + hours
+            hours = '0' + parseInt(hours)
           }
         }
         else if (timeAbbrv == 'pm' && hours != '12') {
@@ -278,8 +278,6 @@ app.post('/api/getCalendars', bodyParser.json(), async (req, res) => {
 app.post('/api/insertEvents', bodyParser.json(), async (req, res) => {
 
   const calendar = google.calendar({version: 'v3', auth: oauth2Client});
-  
-  // console.log(oauth2Client)
 
 
   // const backoff = (fun, exponent, index)  => {
